@@ -1,4 +1,4 @@
-FROM angelrr7702/ubuntu-13.10
+FROM gijzelaerr/trusty
 
 RUN apt-get -y update
 RUN apt-get install -y -q software-properties-common zsh
@@ -7,5 +7,4 @@ RUN apt-get -y update
 
 RUN apt-get -y -q install linkmanager
 RUN linkm s
-ADD bashrc /.bashrc
-
+#ADD bashrc /.bashrc

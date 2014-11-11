@@ -1,0 +1,20 @@
+FROM gijzelaerr/trusty
+
+RUN apt-get -y update
+RUN apt-get -y install redis-server git python3-pip zsh
+RUN apt-get install -y nginx supervisor
+RUN pip3 install --upgrade pip
+RUN pip3 install --upgrade linkmanager
+
+RUN pip3 install uwsgi Flask
+
+#ADD ./app /docker/app
+ADD ./conf /docker/conf
+RUN echo "\ndaemon off;" >> /etc/nginx/nginx.conf
+
+RUN rm /etc/nginx/sites-enabled/default
+RUN ln -s /docker/conf/app_nginx.conf /etc/nginx/sites-enabled/
+RUN ln -s /docker/conf/app_supervisor.conf /etc/supervisor/conf.d/
+
+EXPOSE 80
+CMD ["supervisord", "-n"]
